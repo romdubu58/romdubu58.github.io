@@ -16,8 +16,9 @@
 <meta property="og:description" content="1. 问题概述 海量小文件，通常指文件数量达到千万级、亿级、十亿级以上的场景，这种应用场景对元数据读写、存储效率等要求较高，海量小文件（LOSF，lots of small files）是当前业界的一大难题。通常认为文件大小小于1MB的文件为小文件，下面将分析GlusterFS在这种用户场景下的优劣势，以及如何针对该场景进行优化。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://www.taocloudx.com/d/file/content/2018/02/5a75351e0f278.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg">
 <meta property="article:published_time" content="2020-05-28T14:44:34.000Z">
-<meta property="article:modified_time" content="2020-05-28T15:08:22.921Z">
+<meta property="article:modified_time" content="2020-06-01T09:08:43.951Z">
 <meta property="article:author" content="romdubu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.taocloudx.com/d/file/content/2018/02/5a75351e0f278.png">
@@ -207,7 +208,7 @@
 </li>
 <li><p>针对小文件增加cache，可以显著增加系统的读性能。</p>
 </li>
-<li><p>针对Gluster通信进行优化，减少网络交互次数，可以提升系统OPS，减少延时。</p>
+<li><p>针对Gluster通信进行优化，减少网络交互次数，可以提升系统OPS，减少延时。<br><img src="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg" alt="图2"></p>
 </li>
 </ul>
 
