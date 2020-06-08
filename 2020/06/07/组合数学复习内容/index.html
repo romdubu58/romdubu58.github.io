@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg">
 <meta property="article:published_time" content="2020-06-07T09:15:45.000Z">
-<meta property="article:modified_time" content="2020-06-07T10:30:03.565Z">
+<meta property="article:modified_time" content="2020-06-08T08:24:47.257Z">
 <meta property="article:author" content="romdubu">
 <meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
@@ -167,20 +167,35 @@
       
         <h1 id="排列与组合"><a href="#排列与组合" class="headerlink" title="排列与组合"></a>排列与组合</h1><a id="more"></a>
 <blockquote>
-<p>排列：<br>线排列：P(n,r)=n!/(n-r)! 圆排列：n!/r(n-r)!<br>重复数无限：n^r 重复数有限：(n1+n2+…+nk)!/n1!…nk!</p>
+<p>排列：</p>
 </blockquote>
+<p>线排列：P(n,r)=n!/(n-r)! 圆排列：n!/r(n-r)!</p>
+<p>重复数无限：n^r 重复数有限：(n1+n2+…+nk)!/n1!…nk!</p>
 <blockquote>
-<p>组合：<br>不重复：C(n,r)=n!/(n-r)!r!<br>重复数无限：C(k+r-1,r)</p>
+<p>组合：</p>
 </blockquote>
+<p>不重复：C(n,r)=n!/(n-r)!r! </p>
+<p>重复数无限：C(k+r-1,r)</p>
 <h1 id="母函数"><a href="#母函数" class="headerlink" title="母函数"></a>母函数</h1><blockquote>
-<p>公式：<br>1+x+x^2/2!+…=e^x 1-x+x^2/2!+…=e^-x<br>1+x+x^2+x^3…=1/(1-x) 1-x+x^2-x^3…=1/(1+x)<br>1+2x+2^2x^2+2^3x^3…=1/(1-2x) 1-2x+2^2x^2-2^3x^3…=1/(1+2x)</p>
+<p>公式：</p>
 </blockquote>
+<p>1+x+x^2/2!+…=e^x 1-x+x^2/2!+…=e^-x</p>
+<p>1+x+x^2+x^3…=1/(1-x) 1-x+x^2-x^3…=1/(1+x)</p>
+<p>1+2x+2^2x^2+2^3x^3…=1/(1-2x) 1-2x+2^2x^2-2^3x^3…=1/(1+2x)</p>
 <h1 id="容次定理"><a href="#容次定理" class="headerlink" title="容次定理"></a>容次定理</h1><blockquote>
 <p>待续</p>
 </blockquote>
 <h1 id="群"><a href="#群" class="headerlink" title="群"></a>群</h1><blockquote>
-<p>证明：有限群G的每个元素都有有限阶,且其阶数不超过G的阶数|G|<br>对G中的任意元素a，假设a不是有限阶的，则du对任意正整数n有a^n≠e，e是G的单位元。<br>由群的性质知：a,a^2,a^3……a^n……都是G的元素，这与G有限是矛盾的，所以每个元素都有有限阶。<br>G的阶数|G|指G中元素的个数，设a的阶为d，则a,a^2,a^3……a^d构成G的一个子群，全部都属于G，自然d要小于等于|G|.</p>
+<p>证明：有限群G的每个元素都有有限阶,且其阶数不超过G的阶数|G|</p>
 </blockquote>
+<p>对G中的任意元素a，假设a不是有限阶的，则du对任意正整数n有a^n≠e，e是G的单位元。<br>由群的性质知：a,a^2,a^3……a^n……都是G的元素，这与G有限是矛盾的，所以每个元素都有有限阶。<br>G的阶数|G|指G中元素的个数，设a的阶为d，则a,a^2,a^3……a^d构成G的一个子群，全部都属于G，自然d要小于等于|G|.</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><blockquote>
+<p>非齐次</p>
+</blockquote>
+<p>Sn - Sn-1=n -&gt; Sn - 3Sn-1 + 3Sn-2 - Sn-3 = 0<br>特征根为三重根1<br>Sn = A + B<em>n + C</em>n^2</p>
+<p>Sn - Sn-1=n^2 -&gt; Sn - 4Sn-1 + 6Sn-2 - 4Sn-3 + Sn-4 = 0<br>特征根为四重根1<br>Sn = A + B<em>n + C</em>n^2 + D*n^3</p>
+<p>Sn - Sn-1=n^3 -&gt; Sn - 5Sn-1 + 10Sn-2 - 10Sn-3 + 5Sn-4 - Sn-5 = 0<br>特征根为五重根1<br>Sn = A + B<em>C(n,1) + C</em>C(n,2) + D<em>C(n,3) + E</em>C(n,4)</p>
+<p>Sn - Sn-1=n^4 -&gt; Sn - 6Sn-1 + 15Sn-2 - 20Sn-3 + 15Sn-4 - 6Sn-5 + Sn-6 = 0<br>特征根为六重根1<br>Sn = A + B<em>C(n,1) + C</em>C(n,2) + D<em>C(n,3) + E</em>C(n,4) + F*C(n,5)</p>
 <p><img src="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg" alt="图2"></p>
 
       
@@ -315,7 +330,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#排列与组合"><span class="toc-number">1.</span> <span class="toc-text">排列与组合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#母函数"><span class="toc-number">2.</span> <span class="toc-text">母函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#容次定理"><span class="toc-number">3.</span> <span class="toc-text">容次定理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#群"><span class="toc-number">4.</span> <span class="toc-text">群</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#排列与组合"><span class="toc-number">1.</span> <span class="toc-text">排列与组合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#母函数"><span class="toc-number">2.</span> <span class="toc-text">母函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#容次定理"><span class="toc-number">3.</span> <span class="toc-text">容次定理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#群"><span class="toc-number">4.</span> <span class="toc-text">群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例题"><span class="toc-number">5.</span> <span class="toc-text">例题</span></a></li></ol>
                     </div>
                 </span>
             </div>
