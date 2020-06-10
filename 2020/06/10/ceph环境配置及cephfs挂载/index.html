@@ -6,15 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>ceph环境配置及cephfs挂载 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="在 Ubuntu 18.04 服务器上安装建立一个 Ceph 集群。Ceph 集群包括这些组件：  Ceph OSD (ceph-osd) - 控制数据存储，数据复制和恢复。Ceph 集群需要至少两个 Ceph OSD 服务器。这次安装中我们将使用三个 Ubuntu 16.04 服务器。  Ceph Monitor (ceph-mon) - 监控集群状态并运行 OSD 映射 和 CRUSH 映射。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ceph环境配置及cephfs挂载">
+<meta property="og:url" content="http://yoursite.com/2020/06/10/ceph%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8Acephfs%E6%8C%82%E8%BD%BD/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在 Ubuntu 18.04 服务器上安装建立一个 Ceph 集群。Ceph 集群包括这些组件：  Ceph OSD (ceph-osd) - 控制数据存储，数据复制和恢复。Ceph 集群需要至少两个 Ceph OSD 服务器。这次安装中我们将使用三个 Ubuntu 16.04 服务器。  Ceph Monitor (ceph-mon) - 监控集群状态并运行 OSD 映射 和 CRUSH 映射。">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194249x4s9avayb14z6vy9.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194249o57wzwsusszqe71v.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194250wdfenasiossofsfi.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194250s1335gu1u57kuu43.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194251sc4bpzcel3tqs8vt.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194252vpk3z19i1px6d354.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194253lvbhmpbbfbqdpujv.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194254vzsd4vlszc4bty7h.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194255agfikvailfkoifkj.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194256qk1spg191p9sgsff.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194258wzwmrrndwpcc9wq7.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194300el3cut3r4jbv77nt.png">
+<meta property="og:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194301xsywwwyksnplylts.png">
+<meta property="article:published_time" content="2020-06-10T01:44:50.000Z">
+<meta property="article:modified_time" content="2020-06-10T06:38:36.166Z">
 <meta property="article:author" content="romdubu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.linux.net.cn/data/attachment/album/201702/07/194249x4s9avayb14z6vy9.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -138,141 +156,342 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-ceph环境配置及cephfs挂载" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      ceph环境配置及cephfs挂载
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/10/ceph%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8Acephfs%E6%8C%82%E8%BD%BD/" class="archive-article-date">
+
+        
+        <a href="/2020/06/10/ceph%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8Acephfs%E6%8C%82%E8%BD%BD/" class="archive-article-date">
   	<time datetime="2020-06-10T01:44:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/10/ceph%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8Acephfs%E6%8C%82%E8%BD%BD/">ceph环境配置及cephfs挂载</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 Ubuntu 18.04 服务器上安装建立一个 Ceph 集群。Ceph 集群包括这些组件：</p>
+<ul>
+<li><p>Ceph OSD (ceph-osd) - 控制数据存储，数据复制和恢复。Ceph 集群需要至少两个 Ceph OSD 服务器。这次安装中我们将使用三个 Ubuntu 16.04 服务器。</p>
+</li>
+<li><p>Ceph Monitor (ceph-mon) - 监控集群状态并运行 OSD 映射 和 CRUSH 映射。这里我们使用一个服务器。</p>
+</li>
+<li><p>Ceph Meta Data Server (ceph-mds) - 如果你想把 Ceph 作为文件系统使用，就需要这个。</p>
+<a id="more"></a>
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><p>使用下面这些 hostname /IP 安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">主机名              IP 地址</span><br><span class="line">ceph-admin         10.0.15.10</span><br><span class="line">mon1               10.0.15.11</span><br><span class="line">osd1               10.0.15.21</span><br><span class="line">osd2               10.0.15.22</span><br><span class="line">osd3               10.0.15.23</span><br><span class="line">client             10.0.15.15</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+</li>
+</ul>
+<h1 id="第-1-步-配置所有节点"><a href="#第-1-步-配置所有节点" class="headerlink" title="第 1 步 - 配置所有节点"></a>第 1 步 - 配置所有节点</h1><p>在所有节点运行下面的命令。然后确保所有节点都安装了 ssh-server。</p>
+<h2 id="创建-Ceph-用户"><a href="#创建-Ceph-用户" class="headerlink" title="创建 Ceph 用户"></a>创建 Ceph 用户</h2><p>在所有节点创建一个名为 cephuser 的新用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -s &#x2F;bin&#x2F;bash cephuser</span><br><span class="line">passwd cephuser</span><br></pre></td></tr></table></figure>
+<p>创建完新用户后，我们需要给 cephuser 配置无密码的 sudo 权限。这意味着 cephuser 可以不先输入密码而获取到 sudo 权限运行。</p>
+<p>运行下面的命令来完成配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;cephuser ALL &#x3D; (root) NOPASSWD:ALL&quot; | sudo tee &#x2F;etc&#x2F;sudoers.d&#x2F;cephuser</span><br><span class="line">chmod 0440 &#x2F;etc&#x2F;sudoers.d&#x2F;cephuser</span><br><span class="line">sed -i s&#39;&#x2F;Defaults requiretty&#x2F;#Defaults requiretty&#39;&#x2F;g &#x2F;etc&#x2F;sudoers</span><br></pre></td></tr></table></figure>
+<h2 id="安装和配置-NTP"><a href="#安装和配置-NTP" class="headerlink" title="安装和配置 NTP"></a>安装和配置 NTP</h2><p>安装 NTP 来同步所有节点的日期和时间。先运行 ntpdate 命令通过 NTP 设置日期。我们将使用 US 池的 NTP 服务器。然后开启并使 NTP 服务在开机时启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y ntp ntpdate ntp-doc</span><br><span class="line">ntpdate 0.us.pool.ntp.org</span><br><span class="line">hwclock --systohc</span><br><span class="line">systemctl enable ntp</span><br><span class="line">systemctl start ntp</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Open-vm-tools"><a href="#安装-Open-vm-tools" class="headerlink" title="安装 Open-vm-tools"></a>安装 Open-vm-tools</h2><p>如果你正在 VMware 里运行所有节点，你需要安装这个虚拟化工具。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y open-vm-tools</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Python-和-parted"><a href="#安装-Python-和-parted" class="headerlink" title="安装 Python 和 parted"></a>安装 Python 和 parted</h2><p>在这个教程，我们需要 python 包来建立 ceph 集群。安装 python 和 python-pip。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y python python-pip parted</span><br></pre></td></tr></table></figure>
+<h2 id="配置-Hosts-文件"><a href="#配置-Hosts-文件" class="headerlink" title="配置 Hosts 文件"></a>配置 Hosts 文件</h2><p>用 vim 编辑器编辑所有节点的 hosts 文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
+<p>粘帖如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">10.0.15.10        ceph-admin</span><br><span class="line">10.0.15.11        mon1</span><br><span class="line">10.0.15.21        ceph-osd1</span><br><span class="line">10.0.15.22        ceph-osd2</span><br><span class="line">10.0.15.23        ceph-osd3</span><br><span class="line">10.0.15.15        ceph-client</span><br></pre></td></tr></table></figure>
+<p>保存 hosts 文件，然后退出 vim 编辑器。</p>
+<p>现在你可以试着在两个服务器间 ping 主机名来测试网络连通性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping -c 5 mon1</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194249x4s9avayb14z6vy9.png" alt="图1"></p>
+<h1 id="第-2-步-配置-SSH-服务器"><a href="#第-2-步-配置-SSH-服务器" class="headerlink" title="第 2 步 - 配置 SSH 服务器"></a>第 2 步 - 配置 SSH 服务器</h1><p>这一步，我们将配置 ceph-admin 节点。管理节点是用来配置监控节点和 osd 节点的。登录到 ceph-admin 节点然后使用 cephuser 用户。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh root@ceph-admin</span><br><span class="line">su - cephuser</span><br></pre></td></tr></table></figure>
+<p>管理节点用来安装配置所有集群节点，所以 ceph-admin 上的用户必须有不使用密码连接到所有节点的权限。我们需要为 ‘ceph-admin’ 节点的 cephuser 用户配置无密码 SSH 登录权限。</p>
+<p>生成 cephuser 的 ssh 密钥。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>让密码为空。</p>
+<p>下面，为 ssh 创建一个配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.ssh&#x2F;config</span><br></pre></td></tr></table></figure>
+<p>粘帖如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Host ceph-admin</span><br><span class="line">        Hostname ceph-admin</span><br><span class="line">        User cephuser</span><br><span class="line">Host mon1</span><br><span class="line">        Hostname mon1</span><br><span class="line">        User cephuser</span><br><span class="line">Host ceph-osd1</span><br><span class="line">        Hostname ceph-osd1</span><br><span class="line">        User cephuser</span><br><span class="line">Host ceph-osd2</span><br><span class="line">        Hostname ceph-osd2</span><br><span class="line">        User cephuser</span><br><span class="line">Host ceph-osd3</span><br><span class="line">        Hostname ceph-osd3</span><br><span class="line">        User cephuser</span><br><span class="line">Host ceph-client</span><br><span class="line">        Hostname ceph-client</span><br><span class="line">        User cephuser</span><br></pre></td></tr></table></figure>
+<p>保存文件并退出 vim。<br><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194249o57wzwsusszqe71v.png" alt="图2"></p>
+<p>改变配置文件权限为 644。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 644 ~&#x2F;.ssh&#x2F;config</span><br></pre></td></tr></table></figure>
+<p>现在使用 ssh-copy-id 命令增加密钥到所有节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan ceph-osd1 ceph-osd2 ceph-osd3 ceph-client mon1 &gt;&gt; ~&#x2F;.ssh&#x2F;known_hosts</span><br><span class="line">ssh-copy-id ceph-osd1</span><br><span class="line">ssh-copy-id ceph-osd2</span><br><span class="line">ssh-copy-id ceph-osd3</span><br><span class="line">ssh-copy-id mon1</span><br></pre></td></tr></table></figure>
+<p>当请求输入密码时输入你的 cephuser 密码。<br><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194250wdfenasiossofsfi.png" alt="image3"></p>
+<p>现在尝试从 ceph-admin 节点登录 osd1 服务器，测试无密登录是否正常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh ceph-osd1</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194250s1335gu1u57kuu43.png" alt="image4"></p>
+<h1 id="第-3-步-配置-Ubuntu-防火墙"><a href="#第-3-步-配置-Ubuntu-防火墙" class="headerlink" title="第 3 步 - 配置 Ubuntu 防火墙"></a>第 3 步 - 配置 Ubuntu 防火墙</h1><p>出于安全原因，我们需要在服务器打开防火墙。我们更愿使用 Ufw（不复杂防火墙）来保护系统，这是 Ubuntu 默认的防火墙。在这一步，我们在所有节点开启 ufw，然后打开 ceph-admin、ceph-mon 和 ceph-osd 需要使用的端口。</p>
+<p>登录到 ceph-admin 节点，然后安装 ufw 包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh root@ceph-admin</span><br><span class="line">sudo apt-get install -y ufw</span><br></pre></td></tr></table></figure>
+<p>打开 80，2003 和 4505-4506 端口，然后重启防火墙。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 22&#x2F;tcp</span><br><span class="line">sudo ufw allow 80&#x2F;tcp</span><br><span class="line">sudo ufw allow 2003&#x2F;tcp</span><br><span class="line">sudo ufw allow 4505:4506&#x2F;tcp</span><br></pre></td></tr></table></figure>
+<p>开启 ufw 并设置开机启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw enable</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194251sc4bpzcel3tqs8vt.png" alt="image5"></p>
+<p>从 ceph-admin 节点，登录到监控节点 mon1 然后安装 ufw。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh mon1</span><br><span class="line">sudo apt-get install -y ufw</span><br></pre></td></tr></table></figure>
+<p>打开 ceph 监控节点的端口然后开启 ufw。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 22&#x2F;tcp</span><br><span class="line">sudo ufw allow 6789&#x2F;tcp</span><br><span class="line">sudo ufw enable</span><br></pre></td></tr></table></figure>
+<p>最后，在每个 osd 节点 ceph-osd1、ceph-osd2 和 ceph-osd3 上打开这些端口 6800-7300。</p>
+<p>从 ceph-admin 登录到每个 ceph-osd 节点安装 ufw。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh ceph-osd1</span><br><span class="line">sudo apt-get install -y ufw</span><br></pre></td></tr></table></figure>
+<p>在 osd 节点打开端口并重启防火墙。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 22&#x2F;tcp</span><br><span class="line">sudo ufw allow 6800:7300&#x2F;tcp</span><br><span class="line">sudo ufw enable</span><br></pre></td></tr></table></figure>
+<p>ufw 防火墙配置完成。</p>
+<h1 id="第-4-步-配置-Ceph-OSD-节点"><a href="#第-4-步-配置-Ceph-OSD-节点" class="headerlink" title="第 4 步 - 配置 Ceph OSD 节点"></a>第 4 步 - 配置 Ceph OSD 节点</h1><p>这个教程里，我们有 3 个 OSD 节点，每个节点有两块硬盘分区。</p>
+<p>/dev/sda 用于根分区<br>/dev/sdb 空闲分区 - 20GB<br>我们要使用 /dev/sdb 作为 ceph 磁盘。从 ceph-admin 节点，登录到所有 OSD 节点，然后格式化 /dev/sdb 分区为 XFS 文件系统。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh ceph-osd1</span><br><span class="line">ssh ceph-osd2</span><br><span class="line">ssh ceph-osd3</span><br></pre></td></tr></table></figure>
+<p>使用 fdisk 命令检查分区表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -l &#x2F;dev&#x2F;sdb</span><br></pre></td></tr></table></figure>
+<p>格式化 /dev/sdb 分区为 XFS 文件系统，使用 parted 命令创建一个 GPT 分区表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo parted -s &#x2F;dev&#x2F;sdb mklabel gpt mkpart primary xfs 0% 100%</span><br></pre></td></tr></table></figure>
+<p>下面，使用 mkfs 命令格式化分区为 XFS 格式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkfs.xfs -f &#x2F;dev&#x2F;sdb</span><br></pre></td></tr></table></figure>
+<p>现在检查分区，然后你会看见一个 XFS 文件系统的 /dev/sdb 分区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -s &#x2F;dev&#x2F;sdb</span><br><span class="line">sudo blkid -o value -s TYPE &#x2F;dev&#x2F;sdb</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194252vpk3z19i1px6d354.png" alt="image6"></p>
+<h1 id="第-5-步-创建-Ceph-集群"><a href="#第-5-步-创建-Ceph-集群" class="headerlink" title="第 5 步 - 创建 Ceph 集群"></a>第 5 步 - 创建 Ceph 集群</h1><p>在这步，我们将从 ceph-admin 安装 Ceph 到所有节点。马上开始，先登录到 ceph-admin 节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh root@ceph-admin</span><br><span class="line">su - cephuser</span><br></pre></td></tr></table></figure>
+<h2 id="在-ceph-admin-节点上安装-ceph-deploy"><a href="#在-ceph-admin-节点上安装-ceph-deploy" class="headerlink" title="在 ceph-admin 节点上安装 ceph-deploy"></a>在 ceph-admin 节点上安装 ceph-deploy</h2><p>首先我们已经在系统上安装了 python 和 python-pip。现在我们需要从 pypi python 仓库安装 Ceph 部署工具 ‘ceph-deploy’。</p>
+<p>用 pip 命令在 ceph-admin 节点安装 ceph-deploy 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install ceph-deploy</span><br></pre></td></tr></table></figure>
+<p>注意： 确保所有节点都已经更新。</p>
+<p>ceph-deploy 工具已经安装完毕后，为 Ceph 集群配置创建一个新目录。</p>
+<h2 id="创建一个新集群"><a href="#创建一个新集群" class="headerlink" title="创建一个新集群"></a>创建一个新集群</h2><p>创建一个新集群目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir cluster</span><br><span class="line">cd cluster&#x2F;</span><br></pre></td></tr></table></figure>
+<p>下一步，用 ceph-deploy 命令通过定义监控节点 mon1 创建一个新集群。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy new mon1</span><br></pre></td></tr></table></figure>
+<p>命令将在集群目录生成 Ceph 集群配置文件 ceph.conf。</p>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194253lvbhmpbbfbqdpujv.png" alt="image7"></p>
+<p>用 vim 编辑 ceph.conf。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ceph.conf</span><br></pre></td></tr></table></figure>
+<p>在 [global] 块下，粘贴下面的配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Your network address</span><br><span class="line">public network &#x3D; 10.0.15.0&#x2F;24</span><br><span class="line">osd pool default size &#x3D; 2</span><br></pre></td></tr></table></figure>
+<p>保存文件并退出编辑器。</p>
+<h2 id="安装-Ceph-到所有节点"><a href="#安装-Ceph-到所有节点" class="headerlink" title="安装 Ceph 到所有节点"></a>安装 Ceph 到所有节点</h2><p>现在用一个命令从 ceph-admin 节点安装 Ceph 到所有节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy install ceph-admin ceph-osd1 ceph-osd2 ceph-osd3 mon1</span><br></pre></td></tr></table></figure>
+<p>命令将自动安装 Ceph 到所有节点：mon1、osd1-3 和 ceph-admin - 安装将花一些时间。</p>
+<p>现在到 mon1 节点部署监控节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy mon create-initial</span><br></pre></td></tr></table></figure>
+<p>命令将创建一个监控密钥，用 ceph 命令检查密钥。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy gatherkeys mon1</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194254vzsd4vlszc4bty7h.png" alt="image8"></p>
+<h2 id="增加-OSD-到集群"><a href="#增加-OSD-到集群" class="headerlink" title="增加 OSD 到集群"></a>增加 OSD 到集群</h2><p>在所有节点上安装了 Ceph 之后，现在我们可以增加 OSD 守护进程到该集群。OSD 守护进程将在磁盘 /dev/sdb 分区上创建数据和日志 。</p>
+<p>检查所有 osd 节点的 /dev/sdb 磁盘可用性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy disk list ceph-osd1 ceph-osd2 ceph-osd3</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194255agfikvailfkoifkj.png" alt="image9"></p>
+<p>你将看见我们之前创建 XFS 格式的 /dev/sdb。</p>
+<p>下面，在所有 OSD 节点上用 zap 选项删除该分区表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy disk zap ceph-osd1 &#x2F;dev&#x2F;sdb ceph-osd2 &#x2F;dev&#x2F;sdb ceph-osd3 &#x2F;dev&#x2F;sdb</span><br></pre></td></tr></table></figure>
+<p>这个命令将删除所有 Ceph OSD 节点的 /dev/sdb 上的数据。</p>
+<p>现在准备所有 OSD 节点，请确保结果没有报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy osd create --data &#x2F;dev&#x2F;sdb ceph-osd1</span><br></pre></td></tr></table></figure>
+<p>当你看到 ceph-osd1-3 结果已经准备好供 OSD 使用，就表明命令已经成功。</p>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194256qk1spg191p9sgsff.png" alt="image10"></p>
+<p>用下面的命令激活 OSD：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy mgr create ceph-osd1 ceph-osd2</span><br></pre></td></tr></table></figure>
+<p>现在你可以再一次检查 OSDS 节点的 sdb 磁盘。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy disk list ceph-osd1 ceph-osd2 ceph-osd3</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194258wzwmrrndwpcc9wq7.png" alt="image11"></p>
+<p>结果是 /dev/sdb 现在已经分为两个区：</p>
+<ul>
+<li>/dev/sdb1 - Ceph Data</li>
+<li>/dev/sdb2 - Ceph Journal</li>
+</ul>
+<p>或者你直接在 OSD 节点山检查。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh ceph-osd1</span><br><span class="line">sudo fdisk -l &#x2F;dev&#x2F;sdb</span><br></pre></td></tr></table></figure>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194300el3cut3r4jbv77nt.png" alt="image12"></p>
+<p>接下来，部署管理密钥到所有关联节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy admin ceph-admin mon1 ceph-osd1 ceph-osd2 ceph-osd3</span><br></pre></td></tr></table></figure>
+<p>在所有节点运行下面的命令，改变密钥文件权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 644 &#x2F;etc&#x2F;ceph&#x2F;ceph.client.admin.keyring</span><br></pre></td></tr></table></figure>
+<p>Ceph 集群在 Ubuntu 18.04 已经创建完成。</p>
+<h1 id="第-6-步-测试-Ceph"><a href="#第-6-步-测试-Ceph" class="headerlink" title="第 6 步 - 测试 Ceph"></a>第 6 步 - 测试 Ceph</h1><p>在第 4 步，我们已经安装并创建了一个新 Ceph 集群，然后添加了 OSD 节点到集群。现在我们应该测试集群确保它如期工作。</p>
+<p>从 ceph-admin 节点，登录到 Ceph 监控服务器 mon1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh mon1</span><br></pre></td></tr></table></figure>
+<p>运行下面命令来检查集群是否健康。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ceph health</span><br></pre></td></tr></table></figure>
+<p>现在检查集群状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ceph -s</span><br></pre></td></tr></table></figure>
+<p>你可以看到下面返回结果：</p>
+<p><img src="https://img.linux.net.cn/data/attachment/album/201702/07/194301xsywwwyksnplylts.png" alt="image13"></p>
+<p>确保 Ceph 健康状态是 OK 的，有一个监控节点 mon1 IP 地址为 ‘10.0.15.11’。有 3 个 OSD 服务器都是 up 状态并且正在运行，可用磁盘空间为 45GB - 3x15GB 的 Ceph 数据 OSD 分区。</p>
+<p>我们在 Ubuntu 16.04 建立一个新 Ceph 集群成功。</p>
+<h1 id="第七步-使用ceph集群提供cephfs文件系统"><a href="#第七步-使用ceph集群提供cephfs文件系统" class="headerlink" title="第七步 - 使用ceph集群提供cephfs文件系统"></a>第七步 - 使用ceph集群提供cephfs文件系统</h1><p>1、在admin节点上执行如下命令，启用ceph-osd1上的mds服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ceph-deploy mds create ceph-osd1</span><br></pre></td></tr></table></figure>
+<p>2、在ceph-osd1节点上进行如下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod 644 &#x2F;etc&#x2F;ceph&#x2F;ceph.client.admin.keyring</span><br></pre></td></tr></table></figure>
+<p>创建名为cephfs_data的pool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ceph osd pool create cephfs_data 128</span><br><span class="line">&gt; pool &#39;cephfs_data&#39; created</span><br></pre></td></tr></table></figure>
+<p>3、创建名为cephfs_metadata的pool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ceph osd pool create cephfs_metadata 128 </span><br><span class="line">&gt; pool &#39;cephfs_metadata&#39; created</span><br></pre></td></tr></table></figure>
+<p>4、启用pool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ceph fs new cephfs cephfs_metadata cephfs_data </span><br><span class="line">&gt; new fs with metadata pool 2 and data pool 1</span><br></pre></td></tr></table></figure>
+<p>5、查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ceph fs ls </span><br><span class="line">&gt; name: cephfs, metadata pool: cephfs_metadata, data pools: [cephfs_data ]</span><br></pre></td></tr></table></figure>
+<p>6、查看mds状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ceph mds stat </span><br><span class="line">&gt; e4: 1&#x2F;1&#x2F;1 up &#123;0&#x3D;storage1&#x3D;up:creating&#125;</span><br></pre></td></tr></table></figure>
+<p>以下操作在client节点上</p>
+<p>7、安装rpm包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># apt-get install ceph-fuse ceph</span><br></pre></td></tr></table></figure>
+<p>8、获取admin的key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># ssh cephuser@ceph-osd1 &quot;sudo ceph-authtool -p &#x2F;etc&#x2F;ceph&#x2F;ceph.client.admin.keyring&quot; &gt; admin.key </span><br><span class="line"># chmod 600 admin.key</span><br></pre></td></tr></table></figure>
+<p>9、挂载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># mount -t ceph mon1:6789:&#x2F; &#x2F;mnt -o name&#x3D;admin,secretfile&#x3D;admin.key </span><br><span class="line"># df -hT </span><br><span class="line">Filesystem            Type      Size  Used Avail Use% Mounted on</span><br><span class="line">udev                  devtmpfs  451M     0  451M   0% &#x2F;dev</span><br><span class="line">tmpfs                 tmpfs      97M  1.8M   95M   2% &#x2F;run</span><br><span class="line">&#x2F;dev&#x2F;sda1             ext4       59G  7.4G   49G  14% &#x2F;</span><br><span class="line">tmpfs                 tmpfs     481M     0  481M   0% &#x2F;dev&#x2F;shm</span><br><span class="line">tmpfs                 tmpfs     5.0M  4.0K  5.0M   1% &#x2F;run&#x2F;lock</span><br><span class="line">tmpfs                 tmpfs     481M     0  481M   0% &#x2F;sys&#x2F;fs&#x2F;cgroup</span><br><span class="line">&#x2F;dev&#x2F;loop0            squashfs  141M  141M     0 100% &#x2F;snap&#x2F;gnome-3-26-1604&#x2F;74</span><br><span class="line">&#x2F;dev&#x2F;loop1            squashfs   35M   35M     0 100% &#x2F;snap&#x2F;gtk-common-themes&#x2F;818</span><br><span class="line">&#x2F;dev&#x2F;loop2            squashfs   15M   15M     0 100% &#x2F;snap&#x2F;gnome-logs&#x2F;45</span><br><span class="line">&#x2F;dev&#x2F;loop3            squashfs   91M   91M     0 100% &#x2F;snap&#x2F;core&#x2F;6350</span><br><span class="line">&#x2F;dev&#x2F;loop4            squashfs  3.8M  3.8M     0 100% &#x2F;snap&#x2F;gnome-system-monitor&#x2F;57</span><br><span class="line">&#x2F;dev&#x2F;loop5            squashfs  2.3M  2.3M     0 100% &#x2F;snap&#x2F;gnome-calculator&#x2F;260</span><br><span class="line">&#x2F;dev&#x2F;loop6            squashfs   13M   13M     0 100% &#x2F;snap&#x2F;gnome-characters&#x2F;139</span><br><span class="line">tmpfs                 tmpfs      97M   16K   97M   1% &#x2F;run&#x2F;user&#x2F;121</span><br><span class="line">tmpfs                 tmpfs      97M   52K   97M   1% &#x2F;run&#x2F;user&#x2F;1001</span><br><span class="line">tmpfs                 tmpfs      97M     0   97M   0% &#x2F;run&#x2F;user&#x2F;0</span><br><span class="line">192.168.61.159:6789:&#x2F; ceph       56G     0   56G   0% &#x2F;mnt</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>10、查看pool容量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># ceph df</span><br><span class="line">GLOBAL:</span><br><span class="line">    SIZE        AVAIL       RAW USED     %RAW USED </span><br><span class="line">    120 GiB     117 GiB      3.0 GiB          2.51 </span><br><span class="line">POOLS:</span><br><span class="line">    NAME                ID     USED        %USED     MAX AVAIL     OBJECTS </span><br><span class="line">    cephfs_data         1          0 B         0        55 GiB           0 </span><br><span class="line">    cephfs_metadata     2      3.2 KiB         0        55 GiB          22</span><br></pre></td></tr></table></figure>
 
+<p>11、自动挂载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># cd &#x2F;etc&#x2F;ceph&#x2F;</span><br><span class="line"># touch admin.key</span><br><span class="line"># echo AQB5vWVexvYuFRAAVId1xt9CRmemzYZ1c4WqyQ&#x3D;&#x3D; &gt;&gt; &#x2F;etc&#x2F;ceph&#x2F;admin.key</span><br><span class="line"># vim &#x2F;etc&#x2F;fstab</span><br><span class="line">192.168.61.159:6789:&#x2F; &#x2F;mnt&#x2F; -o name&#x3D;admin,secret&#x3D;&#x2F;etc&#x2F;ceph&#x2F;admin.key,noatime,_netdev  0  0</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>Thanks<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/10/ceph%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8Acephfs%E6%8C%82%E8%BD%BD/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/07/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E5%A4%8D%E4%B9%A0%E5%86%85%E5%AE%B9/" class="archive-article-date">
-  	<time datetime="2020-06-07T09:15:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/07/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E5%A4%8D%E4%B9%A0%E5%86%85%E5%AE%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">组合数学复习内容</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/07/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E5%A4%8D%E4%B9%A0%E5%86%85%E5%AE%B9/">组合数学复习内容</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前提条件"><span class="toc-number">1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第-1-步-配置所有节点"><span class="toc-number">2.</span> <span class="toc-text">第 1 步 - 配置所有节点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-Ceph-用户"><span class="toc-number">2.1.</span> <span class="toc-text">创建 Ceph 用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装和配置-NTP"><span class="toc-number">2.2.</span> <span class="toc-text">安装和配置 NTP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Open-vm-tools"><span class="toc-number">2.3.</span> <span class="toc-text">安装 Open-vm-tools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Python-和-parted"><span class="toc-number">2.4.</span> <span class="toc-text">安装 Python 和 parted</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-Hosts-文件"><span class="toc-number">2.5.</span> <span class="toc-text">配置 Hosts 文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第-2-步-配置-SSH-服务器"><span class="toc-number">3.</span> <span class="toc-text">第 2 步 - 配置 SSH 服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第-3-步-配置-Ubuntu-防火墙"><span class="toc-number">4.</span> <span class="toc-text">第 3 步 - 配置 Ubuntu 防火墙</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第-4-步-配置-Ceph-OSD-节点"><span class="toc-number">5.</span> <span class="toc-text">第 4 步 - 配置 Ceph OSD 节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第-5-步-创建-Ceph-集群"><span class="toc-number">6.</span> <span class="toc-text">第 5 步 - 创建 Ceph 集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#在-ceph-admin-节点上安装-ceph-deploy"><span class="toc-number">6.1.</span> <span class="toc-text">在 ceph-admin 节点上安装 ceph-deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个新集群"><span class="toc-number">6.2.</span> <span class="toc-text">创建一个新集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Ceph-到所有节点"><span class="toc-number">6.3.</span> <span class="toc-text">安装 Ceph 到所有节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增加-OSD-到集群"><span class="toc-number">6.4.</span> <span class="toc-text">增加 OSD 到集群</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第-6-步-测试-Ceph"><span class="toc-number">7.</span> <span class="toc-text">第 6 步 - 测试 Ceph</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第七步-使用ceph集群提供cephfs文件系统"><span class="toc-number">8.</span> <span class="toc-text">第七步 - 使用ceph集群提供cephfs文件系统</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/GlusterFS%E5%B0%8F%E6%96%87%E4%BB%B6%E5%BA%94%E7%94%A8%E8%B0%83%E4%BC%98/" class="archive-article-date">
-  	<time datetime="2020-05-28T14:44:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/GlusterFS%E5%B0%8F%E6%96%87%E4%BB%B6%E5%BA%94%E7%94%A8%E8%B0%83%E4%BC%98/">GlusterFS小文件应用调优</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/Ceph%E8%AE%BA%E6%96%87%E8%AF%91%E6%96%87-1/" class="archive-article-date">
-  	<time datetime="2020-05-28T04:36:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/Ceph%E8%AE%BA%E6%96%87%E8%AF%91%E6%96%87-1/">Ceph论文译文</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -295,8 +514,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
