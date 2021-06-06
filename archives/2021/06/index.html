@@ -6,21 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>少数决 分布式一致性算法选举机制改进 | Hexo</title>
+  <title>Archives: 2021/6 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前提现实中少数决选举来源于《 Liar Game》中的Minority Decision[8]，它并不牵扯少数者博弈[9]问题，本是一个纯粹基于随机目的选择“幸运儿”游戏，具体规则如下：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="少数决 分布式一致性算法选举机制改进">
-<meta property="og:url" content="http://yoursite.com/2020/09/23/%E5%B0%91%E6%95%B0%E5%86%B3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E6%94%B9%E8%BF%9B/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/archives/2021/06/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前提现实中少数决选举来源于《 Liar Game》中的Minority Decision[8]，它并不牵扯少数者博弈[9]问题，本是一个纯粹基于随机目的选择“幸运儿”游戏，具体规则如下：">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg">
-<meta property="article:published_time" content="2020-09-23T06:21:28.000Z">
-<meta property="article:modified_time" content="2020-09-23T09:54:41.023Z">
 <meta property="article:author" content="romdubu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -144,192 +138,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-少数决-分布式一致性算法选举机制改进" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      少数决 分布式一致性算法选举机制改进
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/06/06/Gin%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" class="archive-article-date">
+  	<time datetime="2021-06-06T11:22:22.078Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-06</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/06/06/Gin%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">Gin下载安装遇到的坑</a>
     </h1>
   
 
-        
-        <a href="/2020/09/23/%E5%B0%91%E6%95%B0%E5%86%B3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E6%94%B9%E8%BF%9B/" class="archive-article-date">
-  	<time datetime="2020-09-23T06:21:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><p>现实中少数决选举来源于《 Liar Game》中的<br>Minority Decision[8]，它并不牵扯少数者博弈[9]问题，<br>本是一个纯粹基于随机目的选择“幸运儿”游戏，具<br>体规则如下：</p>
-<a id="more"></a>
-<p>首先，组织者随机选择一名参与者出一道二选<br>一的题目，如“你是否喜欢红色？ ”为充分保证公平<br>性一般是一人出一题后就换下一个人出题，出题顺<br>序无特殊要求，总之大家都有公平的机率出题即可。<br>接着，大家根据题目和自己想法做出“是”或<br>“否”的选择。这里需要说明的是大家的选择并不一<br>定是自己真实的想法，需要思考是：怎么让自己的<br>选择不是大多数人的选择？但可以肯定的是绝不能<br>让别人知道你的选择，因为如果有人知道足够多人<br>的选择后，他就是能做出少数选择。所以，现实中<br>最简单的方法就是将选择写在纸上后折叠，再投入<br>一个不透明的箱子中。</p>
-<p>一次选举包含多轮答题，每轮答题结束后，由<br>组织者唱票。选择为少数派的那一方获胜，进入下<br>一轮继续进行出题、答题；而选择为多数派一方遭<br>淘汰；如双方人数持平或大家选择都一致，则无淘<br>汰者，并直接进入下一轮。</p>
-<p>最后，可能是剩下一个人或是两个人，一个人<br>时直接宣布胜出；两个人时则组织者参与进来以打<br>破两人无法产生小数派的僵局，进行决赛。假设进<br>入决赛的两人为 A 和 B，组织者为 Z。如果不是 A<br>或 B 的选择为少数派（即 Z 胜出），则 A、 B 和 Z<br>继续下一轮，直至 A 或 B 胜出。</p>
-<h1 id="安全性分析"><a href="#安全性分析" class="headerlink" title="安全性分析"></a>安全性分析</h1><p>多数决选举中最常见的一种作弊方式就是控票，<br>控制半数以上有投票权的人的选票，就能保证自己<br>想让谁当选就让谁当选。在经典 Paxos 中可以更容<br>易些，因为只有 acceptor（投票者）能投票，所以只要控制 50%以上的 acceptor 就能随心所欲的指定<br>Leader。而在类 Raft 这种每个节点都有投票权的系<br>统中实现控票，则需要控制 50%以上的节点。本章<br>将分析采用少数决选举机制是否也存在类似的安全<br>性问题。为方便分析，本章假设是由 22 个参与者组<br>成的少数决选举系统。</p>
-<h2 id="绝对控制攻击"><a href="#绝对控制攻击" class="headerlink" title="绝对控制攻击"></a>绝对控制攻击</h2><p>在这 22 个参与者组成的少数决选举系统中，如<br>果已经控制了其中的 12 个参与者的选票（超过<br>50%），接下来是否能够完全按照自己的意志选择<br>Leader。假设 P1,P2,P3,…,P22 为 22 个参与者，<br>P1,P2,P3,…,P12 组成受控团队。假定想指定 P1 成为<br>Leader，就必须保证 P1 能 100%顺利通过三轮的淘<br>汰，所以团队采取全力保证 P1和尽可能多的队友进<br>入下一轮的方式进行投票。第一轮，因为还是不知<br>道团队外这 10 个参与者的选择，所以要保证 P1 能<br>进入第二轮，只能让 P2,P3,…,P12 这 11 个队友选择<br>Yes， P1选择 No，这样才能保证结果最坏是平票（因<br>为有可能团队外的 10 个参与者也同时选择 No），<br>但只要这 10 个参与者是未经商量随机投票的，总会<br>有一轮它们会选择不同的答案。但是，这样做后第<br>二轮又变成公平的 10 选 1 选举了， P1 将只有 10%<br>的获胜几率。</p>
-<p>加大攻击力度，分析在控票率达到 81.8%（ 18/22）<br>的情况下是否可以保证 P1获胜。第一轮，因为不知<br>道团队外 P19,P20,P21,P22 的选择，所以要保证 P1能进<br>入下一轮，先能让 P1,P2,…,P7 这 7 个队友选择 Yes，<br>P8,P10,…,P18这 11 个队友选择 No，这样才能保证结<br>果最坏是平票（ P19,P20,P21,P22 同时选择 Yes），但<br>只要 P19,P20,P21,P22 是未经商量随机投票的，总会有一轮其中会有参与者因选择 No 而遭淘汰。假设第<br>一轮 P20,P21,P22 选择 Yes ， P19 选择 No，所以<br>P1,P2,…,P7和 P20,P21,P22进入下一轮。第二轮，同理<br>P1,P2这 2 个队友选择 Yes， P3,P4,P5,P6,P7这 5 个队<br>友选择 No,最坏情况，假设第二轮 P21,P22选择 Yes，<br>P20 选择 No，所以 P1,P2 和 P21,P22 进入下一轮。第<br>三轮， P1,P2无论怎么作弊，都无法保证 P1获胜。这<br>表示控制 81.8%的选票只能将 P1 获胜的几率提升至<br>25%，且其他少于 18 个队友的团队也都无法保证<br>P1 的 100%获胜。</p>
-<p>再次加大攻击力度，分析在控票率达到 86.4%<br>（ 19/22）的情况下是否可以保证 P1获胜。第一轮，<br>因为不知道团队外 P20,P21,P22 的选择，所以要保证<br>P1 能进入下一轮，先能让 P1,P2,…,P8这 8 个队友选<br>择 Yes， P9,P10,…,P19 这 11 个队友选择 NO，这样才<br>能保证结果最坏是平票（ P20,P21,P22 也选择 Yes），<br>但只要 P20,P21,P22 是未经商量随机投票的，总会有<br>一轮其中会有参与者因选择 No 而遭淘汰。假设第<br>一轮P21和P22选择Yes， P20选择No，所以P1,P2,…,P8<br>和 P21,P22 进入下一轮。第二轮，同理 P1,P2,P3 这 3<br>个队友选择 Yes， P4,P5,…,P8 这 5 个队友选择 No，<br>这时最坏情况又是平票，逼P21和 P22至少一个淘汰，<br>否则永远平票。假设 P22选择 Yes ， P21 选择 No，<br>所以 P1,P2,P3 和 P22 进入下一轮。第三轮，同理 P1<br>选择 Yes， P2,P3 这 2 个队友选择 No， P22注定被淘<br>汰，而 P1通过一系列操作终于获胜了。</p>
-<h2 id="团队攻击"><a href="#团队攻击" class="headerlink" title="团队攻击"></a>团队攻击</h2><p>如果能成功控制一定数量节点的投票，是可以<br>保证这个团队中的一个最终获胜，即团队攻击成功。<br>第一轮中，安排团队中的 8 个节点中 4 个节点选 Yes，<br>另 4 个节点选 No。因此这一轮后留下来的节点中总<br>有团队中的 4 个，最坏情况下还有 4 个团队外的节<br>点。第二轮中，安排团队中的 4 个队友中 2 个选 Yes，<br>另 2 个选 No。因此这一轮后留下来的节点中总有团<br>队中的 2 个，最坏情况下还有 2 个团队外的节点。<br>第三轮中，团队中的 2 个队友中的 1 个选 Yes，另 1<br>个选 No，只要另外两节点是未经商量随机投票的，<br>总会有一轮它们选择同样的答案，于是最终成为<br>Leader 将是团队中的一员。</p>
-<p>要保证在少数决选举团队攻击成功，团队成员<br>的数量 Tn 要满足一定条件。 Tn 与可能进行的有效<br>投票轮数 r（平局轮不计， r 与参与者总数 An 相关）<br>有关，所以当控制节点数量 Tn 满足 Tn≥2r时可以确<br>保团队攻击成功。</p>
-<p>但是，团队攻击只能保证团队中的某一个成员<br>被选为 Leader，但仍然无法确定最终获胜的是哪一<br>个，即只是缩小了产生 Leader 的节点范围，降低了<br>系统去中心化的程度。</p>
-<h2 id="欺诈攻击"><a href="#欺诈攻击" class="headerlink" title="欺诈攻击"></a>欺诈攻击</h2><p>首先，假设 P1找到 P2,P3,…,P8等 7 个参与者在<br>不为人知的情况下组成一个团队，把保证团队获胜的方法告诉团队成员，并承诺团队获胜后平分作为<br>Leader 的权益。然后， P1再找 P9,P10,…,P15 等 7 个<br>参与者秘密地组建第二支团队，策略和承诺相同。<br>最后， P1再与剩余的 P16,P17,…,P22秘密地组成第三<br>支团队。这里成功地组织了三支“8 人”团队，让每个<br>参与者都坚信自己身在一个将要利用必胜法获胜并<br>平分胜利果实的团队里。除了 P1，大家都不知道还<br>有其它团队存在。在第一轮游戏中， P1 指示每个团<br>队里包括 P1自己在内的 4 个队友投 Yes，其余的人<br>都投 No。这样下来，投 Yes 的一共就有 10 票， No<br>有 12 票，于是 P1和每个团队里除 P1 之外的另外三<br>个人获胜。下一轮游戏中， P1 再指示每个队伍里包<br>括 P1在内的两人投 Yes，其它人都投 No，这样 Yes<br>就有 4 票， No 有 6 票， P1 再次胜出。最后， P1 自<br>己投 Yes，并指示其他人都投 No，这就保证了 P1<br>可以 100%获胜。</p>
-<p>这种攻击方式因其在现实中确实存在理论上的<br>可能，但在没有奖励机制、没有智能协商、需要重<br>复多次选举的分布式系统中是不可能实现的，因为<br>把一致性算法当作共识机制的分布式系统， 被设定<br>是不存在拜占庭将军问题的。</p>
-<h1 id="针对少数决安全问题的优化"><a href="#针对少数决安全问题的优化" class="headerlink" title="针对少数决安全问题的优化"></a>针对少数决安全问题的优化</h1><p><img src="https://s1.ax1x.com/2020/06/01/tGyTPO.jpg" alt="图2"></p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>Thanks<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/23/%E5%B0%91%E6%95%B0%E5%86%B3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6%E6%94%B9%E8%BF%9B/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2021/06/06/Gin%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Gin下载安装遇到的坑
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/07/23/%E5%AD%98%E5%82%A8%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AE%B9/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">存储学习内容</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前提"><span class="toc-number">1.</span> <span class="toc-text">前提</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全性分析"><span class="toc-number">2.</span> <span class="toc-text">安全性分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对控制攻击"><span class="toc-number">2.1.</span> <span class="toc-text">绝对控制攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#团队攻击"><span class="toc-number">2.2.</span> <span class="toc-text">团队攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#欺诈攻击"><span class="toc-number">2.3.</span> <span class="toc-text">欺诈攻击</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#针对少数决安全问题的优化"><span class="toc-number">3.</span> <span class="toc-text">针对少数决安全问题的优化</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -352,8 +203,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
